@@ -1,0 +1,38 @@
+{
+  "name": "shapeshift.io",
+  "version": "0.0.1",
+  "description": "A component for shapeshift.io crypto currency API",
+  "main": "lib/shapeshift.js",
+  "scripts": {
+    "test": "standard && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jprichardson/shapeshift.js"
+  },
+  "keywords": [
+    "crypto",
+    "crypto",
+    "currency",
+    "currency",
+    "shapeshift",
+    "bitcoin",
+    "litecoin",
+    "dogecoin",
+    "dash",
+    "monero",
+    "counterparty",
+    "blackcoin"
+  ],
+  "author": "JP Richardson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jprichardson/shapeshift.js/issues"
+  },
+  "homepage": "https://github.com/jprichardson/shapeshift.js",
+  "devDependencies": {
+    "nock": "^1.6.0",
+    "proxyquire": "^1.4.0",
+    "mocha": "*"
+  }
+}
