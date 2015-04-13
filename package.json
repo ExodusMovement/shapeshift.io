@@ -36,6 +36,6 @@
     "mocha": "*"
   },
   "dependencies": {
-    "superagent": "^1.1.0"
+    "request": "^2.55.0"
   }
 }
