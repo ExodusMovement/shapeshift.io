@@ -20,6 +20,18 @@ describe('shapeshift', function () {
     })
   })
 
+  describe('+ depositLimit()', function () {
+    it('should get the deposit limit', function (done) {
+      var pair = 'btc_ltc'
+      shapeshift.depositLimit(pair, function (err, limit) {
+        assert.ifError(err)
+        assert.equal(typeof limit, 'string')
+        assert(parseFloat(limit) > 1)
+        done()
+      })
+    })
+  })
+
   describe('+ rate()', function () {
     it('should get the current rate', function (done) {
       var pair = 'btc_ltc'

@@ -45,6 +45,26 @@ shapeshift.coins(function (err, coinData) {
 })
 ```
 
+
+### depositLimit()
+
+Get the deposit limit before you purchase.
+
+Reference: https://shapeshift.io/api.html#deposit-limit
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var pair = 'btc_ltc'
+shapeshift.depositLimit(pair, function (err, limit) {
+  console.dir(limit) // => '4.41101872'
+})
+```
+
+
+
 ### rate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
