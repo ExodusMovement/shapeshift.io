@@ -8,13 +8,15 @@ documentation here: https://shapeshift.io/api.html
 Usage
 -----
 
+### Installation
+
     npm i --save shapeshift.io
 
 
-Methods
--------
+### Methods
 
-### coins()
+
+#### coins()
 
 Get a map of supported coins.
 
@@ -46,7 +48,7 @@ shapeshift.coins(function (err, coinData) {
 ```
 
 
-### depositLimit()
+#### depositLimit()
 
 Get the deposit limit before you purchase.
 
@@ -64,7 +66,7 @@ shapeshift.depositLimit(pair, function (err, limit) {
 ```
 
 
-### exchangeRate()
+#### exchangeRate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
 `string`; this is to ensure precision matches the API exactly.
@@ -83,7 +85,7 @@ shapeshift.exchangeRate(pair, function (err, rate) {
 ```
 
 
-### recent()
+#### recent()
 
 Get a list of recent transactions / purchases.
 
@@ -110,6 +112,28 @@ shapeshift.recent(function (err, recent) {
   */
 })
 ```
+
+
+### Intercept HTTP
+
+You can intercept/modify http methods. This may be useful if you want to use an alternative http
+library.
+
+
+#### http.get
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var oldGet = shapeshift.http.get
+shapeshift.http.get = function (url, callback) {
+  // log urls?
+  // use another http library?
+}
+```
+
 
 
 License
