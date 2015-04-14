@@ -65,7 +65,7 @@ shapeshift.depositLimit(pair, function (err, limit) {
 
 
 
-### rate()
+### exchangeRate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
 `string`; this is to ensure precision matches the API exactly.
@@ -78,7 +78,7 @@ Reference: https://shapeshift.io/api.html#rate
 var shapeshift = require('shapeshift.io')
 
 var pair = 'btc_ltc'
-shapeshift.rate(pair, function (err, rate) {
+shapeshift.exchangeRate(pair, function (err, rate) {
   console.dir(rate) // => '158.71815287'
 })
 ```

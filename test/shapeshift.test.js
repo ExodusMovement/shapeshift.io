@@ -32,10 +32,10 @@ describe('shapeshift', function () {
     })
   })
 
-  describe('+ rate()', function () {
+  describe('+ exchangeRate()', function () {
     it('should get the current rate', function (done) {
       var pair = 'btc_ltc'
-      shapeshift.rate(pair, function (err, rate) {
+      shapeshift.exchangeRate(pair, function (err, rate) {
         assert.ifError(err)
 
         // we keep string to maintain precision
