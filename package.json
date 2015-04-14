@@ -1,6 +1,6 @@
 {
   "name": "shapeshift.io",
-  "version": "0.0.2-pre",
+  "version": "0.0.2",
   "description": "A component for shapeshift.io crypto currency API",
   "main": "lib/shapeshift.js",
   "scripts": {

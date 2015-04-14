@@ -1,4 +1,4 @@
-0.0.2 / 2015-04-xx
+0.0.2 / 2015-04-14
 ------------------
 - added `depositLimit()`
 - renamed `rate()` to `exchangeRate()`
