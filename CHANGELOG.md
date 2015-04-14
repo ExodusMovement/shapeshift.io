@@ -4,6 +4,7 @@
 - renamed `rate()` to `exchangeRate()`
 - added `recent()`
 - intercept http methods
+- added cors support
 
 0.0.1 / 2015-04-13
 ------------------

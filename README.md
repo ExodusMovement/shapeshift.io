@@ -135,6 +135,18 @@ shapeshift.http.get = function (url, callback) {
 ```
 
 
+### CORS
+
+ShapeShift supports CORS so that you can do cross-domain requests in the browser. See
+https://shapeshift.io/api.html#cors for more details.
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+shapeshift.cors = true
+```
+
 
 License
 -------
