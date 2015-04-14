@@ -2,6 +2,7 @@
 ------------------
 - added `depositLimit()`
 - renamed `rate()` to `exchangeRate()`
+- added `recent()`
 
 0.0.1 / 2015-04-13
 ------------------

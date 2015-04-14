@@ -48,4 +48,18 @@ describe('shapeshift', function () {
       })
     })
   })
+
+  describe('+ recent()', function () {
+    it('should get a list of recent transactions', function (done) {
+      shapeshift.recent(function (err, recent) {
+        assert.ifError(err)
+        assert.equal(recent.length, 50)
+        assert('curIn' in recent[0])
+        assert('curOut' in recent[0])
+        assert('timestamp' in recent[0])
+        assert('amount' in recent[0])
+        done()
+      })
+    })
+  })
 })

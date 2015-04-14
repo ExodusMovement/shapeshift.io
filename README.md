@@ -64,7 +64,6 @@ shapeshift.depositLimit(pair, function (err, limit) {
 ```
 
 
-
 ### exchangeRate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
@@ -80,6 +79,35 @@ var shapeshift = require('shapeshift.io')
 var pair = 'btc_ltc'
 shapeshift.exchangeRate(pair, function (err, rate) {
   console.dir(rate) // => '158.71815287'
+})
+```
+
+
+### recent()
+
+Get a list of recent transactions / purchases.
+
+Reference: https://shapeshift.io/api.html#recent-list
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+shapeshift.recent(function (err, recent) {
+  console.dir(recent) // =>
+
+  /*
+  [ { curIn: 'DOGE',
+      curOut: 'BTC',
+      timestamp: Tue Apr 14 2015 00:29:50 GMT-0500 (CDT),
+      amount: 417 },
+    { curIn: 'DOGE',
+      curOut: 'BTC',
+      timestamp: Tue Apr 14 2015 00:26:57 GMT-0500 (CDT),
+      amount: 417 },
+    ...
+  */
 })
 ```
 
