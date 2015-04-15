@@ -66,6 +66,37 @@ shapeshift.depositLimit(pair, function (err, limit) {
 ```
 
 
+### depositStatus()
+
+Get the status of most recent deposit transaction to the address.
+
+Reference: https://shapeshift.io/api.html#status-deposit
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var address = '1LMd3fBqUqZScPSKkjGscwji4EZecCuS48'
+shapeshift.depositStatus(address, function (err, status, data) {
+  console.dir(data) // =>
+
+  /*
+    {
+      status : "complete",
+      address: <address>,
+      withdraw: <withdrawal address>,
+      incomingCoin: <amount deposited>,
+      incomingType: <coin type of deposit>,
+      outgoingCoin: <amount sent to withdrawal address>,
+      outgoingType: <coin type of withdrawal>,
+      transaction: <transaction id of coin sent to withdrawal address>
+    }
+  */
+})
+```
+
+
 #### exchangeRate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
@@ -112,6 +143,7 @@ shapeshift.recent(function (err, recent) {
   */
 })
 ```
+
 
 
 ### Intercept HTTP

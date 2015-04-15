@@ -32,6 +32,18 @@ describe('shapeshift', function () {
     })
   })
 
+  describe('+ depositStatus()', function () {
+    it('should get status of deposit address', function () {
+      var address = '5' // hmm, unfortunately accepts shitty malformed addresses
+      shapeshift.depositStatus(address, function (err, status, data) {
+        assert.ifError(err)
+        assert.equal(status, 'no_deposits')
+        assert('status' in data)
+        assert('address' in data)
+      })
+    })
+  })
+
   describe('+ exchangeRate()', function () {
     it('should get the current rate', function (done) {
       var pair = 'btc_ltc'

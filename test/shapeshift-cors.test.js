@@ -20,7 +20,6 @@ describe('shapeshift', function () {
       shapeshift.coins(function (err, coinData) {
         assert.ifError(err)
 
-        console.log(_url)
         assert.equal(_url.indexOf('https://cors.shapeshift'), 0)
 
         // restore
