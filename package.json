@@ -4,7 +4,7 @@
   "description": "A component for shapeshift.io crypto currency API",
   "main": "lib/shapeshift.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "standard && mocha --recursive --timeout 30s"
   },
   "repository": {
     "type": "git",
