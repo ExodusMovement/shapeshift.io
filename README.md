@@ -16,10 +16,11 @@ Usage
 ### Methods
 
 - [coins()](#coins)
-- [depositLimit()](#depositLimit)
-- [depositStatus()](#depositStatus)
+- [depositLimit()](#depositlimit)
+- [depositStatus()](#depositstatus)
 - [exchangeRate()](#exchangeRate)
 - [recent()](#recent)
+- [shift()](#shift)
 
 
 #### coins()
@@ -149,6 +150,49 @@ shapeshift.recent(function (err, recent) {
   */
 })
 ```
+
+
+### shift()
+
+Shift the coins. i.e. notify the API of the pair that you want to shift and the
+address that you want to receive the new coins at.
+
+Reference: https://shapeshift.io/api.html#shift-conduit
+
+Method: `shift(withdrawalAddress, pair, options, callback)`
+
+**Example:**
+
+```js
+// example: converting BTC to LTC
+
+var shapeshift = require('shapeshift')
+
+var withdrawalAddress = 'YOUR_LTC_ADDRESS'
+var pair = 'btc_ltc'
+
+// if something fails
+var options = {
+  returnAddress: 'YOUR_BTC_RETURN_ADDRESS'
+}
+
+shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
+
+  // ShapeShift owned BTC address that you send your BTC to
+  var depositAddress = returnData.deposit
+
+  // you need to actually then send your BTC to ShapeShift
+  // you could use module `spend`: https://www.npmjs.com/package/spend
+  // spend(SS_BTC_WIF, depositAddress, shiftAmount, function (err, txId) { /.. ../ })
+
+  // later, you can then check the deposit status
+  shapeshift.depositStatus(depositAddress, function (err, status, data) {
+    console.log(status) // => should be 'received' or 'complete'
+  })
+})
+```
+
+Entire integration test found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift.test.js
 
 
 

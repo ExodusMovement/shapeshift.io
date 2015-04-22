@@ -31,9 +31,14 @@
   },
   "homepage": "https://github.com/jprichardson/shapeshift.js",
   "devDependencies": {
+    "cb-insight": "^0.1.0",
+    "coininfo": "^0.4.0",
+    "coinkey": "^1.4.0",
+    "mocha": "*",
+    "ms": "^0.7.1",
     "nock": "^1.6.0",
     "proxyquire": "^1.4.0",
-    "mocha": "*"
+    "spend": "0.0.1"
   },
   "dependencies": {
     "request": "^2.55.0"

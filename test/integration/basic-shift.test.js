@@ -19,7 +19,6 @@ describe('shapeshift / integration', function () {
     runIT('should shift', function (done) {
       var ltcKey = CoinKey.fromWif(SS_LTC_WIF)
       var btcKey = CoinKey.fromWif(SS_BTC_WIF)
-      process.exit()
 
       var withdrawalAddress = ltcKey.publicAddress
       var pair = 'btc_ltc'
@@ -31,9 +30,12 @@ describe('shapeshift / integration', function () {
 
       shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
         assert.ifError(err)
+        assert(returnData, 'No return data')
 
-        assert.equal(returnData.depositType, 'btc')
-        assert.equal(returnData.withdrawalType, 'ltc')
+        console.dir(returnData)
+
+        assert.equal(returnData.depositType, 'BTC')
+        assert.equal(returnData.withdrawalType, 'LTC')
 
         var depositAddress = returnData.deposit
 
@@ -42,7 +44,7 @@ describe('shapeshift / integration', function () {
           console.log(txId)
           assert(txId)
 
-          // let's wait some time before checking status, maybe not necessary
+          // let's wait some time before checking status, may not be necessary
           setTimeout(function () {
             shapeshift.depositStatus(depositAddress, function (err, status, data) {
               assert.ifError(err)
