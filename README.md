@@ -15,6 +15,12 @@ Usage
 
 ### Methods
 
+- [coins()](#coins)
+- [depositLimit()](#depositLimit)
+- [depositStatus()](#depositStatus)
+- [exchangeRate()](#exchangeRate)
+- [recent()](#recent)
+
 
 #### coins()
 
