@@ -140,11 +140,11 @@ shapeshift.recent(function (err, recent) {
   /*
   [ { curIn: 'DOGE',
       curOut: 'BTC',
-      timestamp: Tue Apr 14 2015 00:29:50 GMT-0500 (CDT),
+      timestamp: 1428989390,
       amount: 417 },
     { curIn: 'DOGE',
       curOut: 'BTC',
-      timestamp: Tue Apr 14 2015 00:26:57 GMT-0500 (CDT),
+      timestamp: 1428989390,
       amount: 417 },
     ...
   */

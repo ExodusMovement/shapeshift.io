@@ -1,3 +1,7 @@
+0.x.x / 2015-04-xx
+------------------
+- remove converting to `Date` in `recent()`
+
 0.0.3 / 2015-04-21
 ------------------
 - added `depositStatus()`
