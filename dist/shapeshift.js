@@ -423,7 +423,7 @@ module.exports = function (headers) {
 },{"for-each":8,"trim":10}],12:[function(require,module,exports){
 module.exports={
   "name": "shapeshift.io",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A component for shapeshift.io crypto currency API.",
   "main": "lib/shapeshift.js",
   "scripts": {
@@ -506,15 +506,6 @@ function depositLimit (pair, callback) {
   })
 }
 
-function depositStatus (address, callback) {
-  var url = getBaseUrl() + '/txStat/' + address
-  http.get(url, function (err, data) {
-    if (err) return callback(err)
-    if (data.error) return callback(new Error(data.error), data.status, data)
-    callback(null, data.status, data)
-  })
-}
-
 function emailReceipt (emailAddress, txId, callback) {
   var url = getBaseUrl() + '/mail'
   http.post(url, { email: emailAddress, txid: txId}, function (err, data) {
@@ -543,6 +534,14 @@ function recent (callback) {
 }
 
 function shift (withdrawalAddress, pair, options, callback) {
+  if (options.amount) {
+    _shiftFixed(withdrawalAddress, pair, options.amount, options, callback)
+  } else {
+    _shift(withdrawalAddress, pair, options, callback)
+  }
+}
+
+function _shift (withdrawalAddress, pair, options, callback) {
   var url = getBaseUrl() + '/shift'
   var payload = util.clone(options)
   payload.withdrawal = withdrawalAddress
@@ -554,7 +553,7 @@ function shift (withdrawalAddress, pair, options, callback) {
   })
 }
 
-function shiftFixed (withdrawalAddress, pair, amount, options, callback) {
+function _shiftFixed (withdrawalAddress, pair, amount, options, callback) {
   var url = getBaseUrl() + '/sendamount'
   var payload = util.clone(options)
   payload.withdrawal = withdrawalAddress
@@ -565,6 +564,15 @@ function shiftFixed (withdrawalAddress, pair, amount, options, callback) {
     if (data.error) return callback(new Error(data.error), data)
     // shapeshift is inconsistent here, notice in `shift()` there is no success field
     callback(null, data.success)
+  })
+}
+
+function status (depositAddress, callback) {
+  var url = getBaseUrl() + '/txStat/' + depositAddress
+  http.get(url, function (err, data) {
+    if (err) return callback(err)
+    if (data.error) return callback(new Error(data.error), data.status, data)
+    callback(null, data.status, data)
   })
 }
 
@@ -600,13 +608,14 @@ module.exports = {
 
   // shapeshift api methods
   coins: coins,
-  depositStatus: depositStatus,
   depositLimit: depositLimit,
   emailReceipt: emailReceipt,
   exchangeRate: exchangeRate,
   recent: recent,
   shift: shift,
-  shiftFixed: shiftFixed,
+  _shift: _shift,
+  _shiftFixed: _shiftFixed,
+  status: status,
   transactions: transactions
 }
 
