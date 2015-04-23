@@ -26,6 +26,16 @@ drop it in a script tag on your page like this:
 The `shapeshift` object is global.
 
 
+### ShapeShift API
+
+First, a note about the REST API provided by ShapeShift. Be aware that there are some inconsistencies that will no doubt be fixed in
+later versions. The following lists these consistencies:
+
+In returned data, `curIn`, `curOut`, `incomingType`, `outgoingType`, `inputCurrency`, `outputCurrency` all
+mean the same thing (obviously not input/output), namely a currency abbreviation. Just take note that
+`cur`, `type`, and `currency` usually mean the same thing.
+
+
 
 ### Methods
 
@@ -362,6 +372,26 @@ var shapeshift = Promise.promisifyAll(require('shapeshift.io'))
 ```
 
 That simple.
+
+
+Wanna Hack on shapeshift.io package?
+------------------------------------
+
+Awesome. First not that this package uses [JavaScript Standard Style](https://github.com/feross/standard).
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+You'll want to setup two private keys (WIF) so that you can actually test the shifting. Set these as environment
+variables. Make one for Bitcoin (BTC) and the other for Litecoin (LTC). You'll be using real funds. But don't worry,
+it's small amounts (a few pennies).
+
+    # shapeshift API testing
+    export SS_BTC_WIF=K....
+    export SS_LTC_WIF=T....
+
+Then run the tests:
+
+    npm test
 
 
 License
