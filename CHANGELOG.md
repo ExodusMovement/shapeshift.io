@@ -1,4 +1,4 @@
-0.0.x / 2015-04-xx
+0.1.0 / 2015-04-21
 ------------------
 - changed github repo from `jprichardson/shapeshift.js` to `jprichardson/shapeshift.io`
 - added `transactions()`
