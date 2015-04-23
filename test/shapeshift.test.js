@@ -78,7 +78,7 @@ describe('shapeshift', function () {
 
   describe('+ transactions()', function () {
     it('should get a list of transactions by an API key', function (done) {
-      var somePrivKey = sr.randomBuffer(32).toString('hex')
+      var somePrivKey = secureRandom.randomBuffer(32).toString('hex')
       shapeshift.transactions(somePrivKey, function (err, data) {
         assert.ifError(err)
         assert(Array.isArray(data))

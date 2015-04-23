@@ -1,16 +1,30 @@
 shapeshift.io
 =============
 
-A JavaScript component for the crypto currency buying and selling shapeshift.io service. API
-documentation here: https://shapeshift.io/api.html
+A JavaScript component for the crypto currency buying and selling shapeshift.io service. Works in
+both Node.js and the browser. API documentation here: https://shapeshift.io/api.html
 
 
 Usage
 -----
 
-### Installation
+### Node.js Installation
 
     npm i --save shapeshift.io
+
+
+### Browser
+
+You can use this module in the browser. Just grab the file here:
+https://github.com/jprichardson/shapeshift.io/tree/master/dist/shapeshift.js and
+drop it in a script tag on your page like this:
+
+```html
+<script src="./shapeshift.js"></script>
+```
+
+The `shapeshift` object is global.
+
 
 
 ### Methods
