@@ -51,7 +51,7 @@ describe('shapeshift / integration', function () {
 
           // let's wait some time before checking status, may not be necessary
           setTimeout(function () {
-            shapeshift.depositStatus(depositAddress, function (err, status, data) {
+            shapeshift.status(depositAddress, function (err, status, data) {
               assert.ifError(err)
               assert(status === 'received' || status === 'complete', status + ' unexpected status.')
 

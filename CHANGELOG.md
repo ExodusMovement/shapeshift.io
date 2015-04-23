@@ -1,3 +1,7 @@
+1.0.0 / 2015-04-21
+------------------
+- renamed `depositStatus()` to `status()`
+
 0.1.0 / 2015-04-21
 ------------------
 - changed github repo from `jprichardson/shapeshift.js` to `jprichardson/shapeshift.io`

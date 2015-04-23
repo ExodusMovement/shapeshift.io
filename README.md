@@ -31,12 +31,12 @@ The `shapeshift` object is global.
 
 - [coins()](#coins)
 - [depositLimit()](#depositlimit)
-- [depositStatus()](#depositstatus)
 - [emailReceipt()](#emailreceipt)
 - [exchangeRate()](#exchangeRate)
 - [recent()](#recent)
 - [shift()](#shift)
 - [shiftFix()](#shiftfix)
+- [status()](#status)
 - [transactions()](#transactions)
 
 
@@ -87,37 +87,6 @@ var shapeshift = require('shapeshift.io')
 var pair = 'btc_ltc'
 shapeshift.depositLimit(pair, function (err, limit) {
   console.dir(limit) // => '4.41101872'
-})
-```
-
-
-### depositStatus()
-
-Get the status of most recent deposit transaction to the address.
-
-Reference: https://shapeshift.io/api.html#status-deposit
-
-**Example:**
-
-```js
-var shapeshift = require('shapeshift.io')
-
-var address = '1LMd3fBqUqZScPSKkjGscwji4EZecCuS48'
-shapeshift.depositStatus(address, function (err, status, data) {
-  console.dir(data) // =>
-
-  /*
-    {
-      status : "complete",
-      address: <address>,
-      withdraw: <withdrawal address>,
-      incomingCoin: <amount deposited>,
-      incomingType: <coin type of deposit>,
-      outgoingCoin: <amount sent to withdrawal address>,
-      outgoingType: <coin type of withdrawal>,
-      transaction: <transaction id of coin sent to withdrawal address>
-    }
-  */
 })
 ```
 
@@ -233,7 +202,7 @@ shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
   // spend(SS_BTC_WIF, depositAddress, shiftAmount, function (err, txId) { /.. ../ })
 
   // later, you can then check the deposit status
-  shapeshift.depositStatus(depositAddress, function (err, status, data) {
+  shapeshift.status(depositAddress, function (err, status, data) {
     console.log(status) // => should be 'received' or 'complete'
   })
 })
@@ -286,13 +255,48 @@ shapeshift.shiftFixed(withdrawalAddress, pair, amount, options, function (err, r
   // spend(SS_BTC_WIF, depositAddress, shiftAmountSatoshis, function (err, txId) { /.. ../ })
 
   // later, you can then check the deposit status
-  shapeshift.depositStatus(depositAddress, function (err, status, data) {
+  shapeshift.status(depositAddress, function (err, status, data) {
     console.log(status) // => should be 'received' or 'complete'
   })
 })
 ```
 
 Entire integration test found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift-fixed.test.js
+
+
+
+### status()
+
+Get the status of most recent deposit transaction to the address.
+
+Reference: https://shapeshift.io/api.html#status-deposit
+
+Method: `status(depositAddress, callback)`
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+// you get this from the result of shift()
+var address = 'DEPOSIT_ADDRESS'
+shapeshift.status(address, function (err, status, data) {
+  console.dir(data) // =>
+
+  /*
+    {
+      status : "complete",
+      address: <address>,
+      withdraw: <withdrawal address>,
+      incomingCoin: <amount deposited>,
+      incomingType: <coin type of deposit>,
+      outgoingCoin: <amount sent to withdrawal address>,
+      outgoingType: <coin type of withdrawal>,
+      transaction: <transaction id of coin sent to withdrawal address>
+    }
+  */
+})
+```
 
 
 ### transactions()
