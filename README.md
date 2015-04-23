@@ -309,7 +309,13 @@ Method: `transactions(apiKey, [address], callback)`
 **Example:**
 
 ```js
-
+var somePrivKey = 'YOUR_PRIVATE_KEY'
+shapeshift.transactions(somePrivKey, function (err, transactions) {
+  if (err) return console.error(err)
+  transactions.forEach(function (tx) {
+    console.dir(tx)
+  })
+})
 ```
 
 
