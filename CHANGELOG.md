@@ -2,6 +2,7 @@
 ------------------
 - remove converting to `Date` in `recent()`
 - added `shiftFixed()`
+- added `emailReceipt()`
 
 0.0.3 / 2015-04-21
 ------------------

@@ -18,9 +18,11 @@ Usage
 - [coins()](#coins)
 - [depositLimit()](#depositlimit)
 - [depositStatus()](#depositstatus)
+- [emailReceipt()](#emailreceipt)
 - [exchangeRate()](#exchangeRate)
 - [recent()](#recent)
 - [shift()](#shift)
+- [shiftFix()](#shiftfix)
 
 
 #### coins()
@@ -104,6 +106,35 @@ shapeshift.depositStatus(address, function (err, status, data) {
 ```
 
 
+### emailReceipt()
+
+Email receipt for a transaction. Use the transaction id of the withdrawal
+not the transaction id of the transaction.
+
+Reference: https://shapeshift.io/api.html#email-receipt
+
+Method: `emailReceipt(emailAddress, txId, callback)`
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var depositAddress = 'YOUR_DEPOSIT_ADDRESS'
+shapeshift.deposit(depositAddress, function (err, status, data) {
+  // status must be 'complete'
+  if (status !== 'completed') return
+
+  var txId = data.transaction
+  shapeshift.emailReceipt('YOUR_EMAIL_ADDRESS', txId, funtion (err, data) {
+    if (data.status === 'success') {
+      console.log('email sent!')
+    }
+  })
+})
+```
+
+
 #### exchangeRate()
 
 Get the exchange rate. Note, the `rate` is returned as a type of
@@ -166,7 +197,7 @@ Method: `shift(withdrawalAddress, pair, options, callback)`
 ```js
 // example: converting BTC to LTC
 
-var shapeshift = require('shapeshift')
+var shapeshift = require('shapeshift.io')
 
 var withdrawalAddress = 'YOUR_LTC_ADDRESS'
 var pair = 'btc_ltc'
@@ -209,7 +240,7 @@ Method: `shiftFixed(withdrawalAddress, pair, amount, options, callback)`
 ```js
 // example: converting BTC to a Fixed Amount of LTC
 
-var shapeshift = require('shapeshift')
+var shapeshift = require('shapeshift.io')
 
 var withdrawalAddress = 'YOUR_LTC_ADDRESS'
 var pair = 'btc_ltc'
