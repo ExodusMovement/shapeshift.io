@@ -2,6 +2,7 @@
 ------------------
 - changed github repo from `jprichardson/shapeshift.js` to `jprichardson/shapeshift.io`
 - added `transactions()`
+- default to `cors` being `true` i.e. using `cors.shapeshift.io` by default... it may be slower, please test
 
 0.0.4 / 2015-04-21
 ------------------

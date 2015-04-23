@@ -4,11 +4,11 @@ var shapeshift = require('../')
 /* global describe, it */
 
 describe('shapeshift', function () {
-  describe('> when setting cors to true', function () {
+  describe('> when setting cors to false', function () {
     it('should set the shapeshift url to the cors endpoint', function (done) {
       var _url
 
-      shapeshift.cors = true
+      shapeshift.cors = false
 
       var oldGet = shapeshift.http.get
       shapeshift.http.get = function (url, callback) {
@@ -20,11 +20,11 @@ describe('shapeshift', function () {
       shapeshift.coins(function (err, coinData) {
         assert.ifError(err)
 
-        assert.equal(_url.indexOf('https://cors.shapeshift'), 0)
+        assert.equal(_url.indexOf('https://shapeshift'), 0)
 
         // restore
         shapeshift.http.get = oldGet
-        shapeshift.cors = false
+        shapeshift.cors = true
 
         done()
       })
