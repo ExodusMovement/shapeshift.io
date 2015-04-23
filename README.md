@@ -8,7 +8,7 @@ both Node.js and the browser. API documentation here: https://shapeshift.io/api.
 Usage
 -----
 
-### Node.js Installation
+### Node.js / [Browserify](https://github.com/substack/node-browserify) Installation
 
     npm i --save shapeshift.io
 
@@ -352,6 +352,20 @@ https://shapeshift.io/api.html#cors for more details.
 var shapeshift = require('shapeshift.io')
 shapeshift.cors = true
 ```
+
+
+### Promises
+
+Prefer a promise based API? No problem, [Bluebird](https://github.com/petkaantonov/bluebird) has you covered.
+
+Just use [`promisifyAll()`](https://github.com/petkaantonov/bluebird/blob/master/API.md#promisepromisifyallobject-target--object-options---object):
+
+```js
+var Promise = require('bluebird')
+var shapeshift = Promise.promisifyAll(require('shapeshift.io'))
+```
+
+That simple.
 
 
 License
