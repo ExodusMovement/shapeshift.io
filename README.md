@@ -35,7 +35,6 @@ The `shapeshift` object is global.
 - [exchangeRate()](#exchangeRate)
 - [recent()](#recent)
 - [shift()](#shift)
-- [shiftFix()](#shiftfix)
 - [status()](#status)
 - [transactions()](#transactions)
 
@@ -171,16 +170,16 @@ shapeshift.recent(function (err, recent) {
 ### shift()
 
 Shift the coins. i.e. notify the API of the pair that you want to shift and the
-address that you want to receive the new coins at.
+address that you want to receive the new coins at. Can also shift a fixed amount.
 
-Reference: https://shapeshift.io/api.html#shift-conduit
+References: https://shapeshift.io/api.html#shift-conduit, https://shapeshift.io/api.html#sendamount
 
 Method: `shift(withdrawalAddress, pair, options, callback)`
 
-**Example:**
+**Example (normal shift):**
 
 ```js
-// example: converting BTC to LTC
+// example: converting BTC to LTC in any amount
 
 var shapeshift = require('shapeshift.io')
 
@@ -208,19 +207,8 @@ shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
 })
 ```
 
-Entire integration test found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift.test.js
 
-
-
-### shiftFixed()
-
-Convert a fixed amount of coins. Useful for payment services.
-
-Reference: https://shapeshift.io/api.html#sendamount
-
-Method: `shiftFixed(withdrawalAddress, pair, amount, options, callback)`
-
-**Example:**
+**Example (fixed amount):**
 
 ```js
 // example: converting BTC to a Fixed Amount of LTC
@@ -233,12 +221,16 @@ var amount = '0.1' // LTC amount that you want to receive to your LTC address
 
 // if something fails
 var options = {
-  returnAddress: 'YOUR_BTC_RETURN_ADDRESS'
+  returnAddress: 'YOUR_BTC_RETURN_ADDRESS',
+  amount: amount // <---- must set amount here
 }
 
-shapeshift.shiftFixed(withdrawalAddress, pair, amount, options, function (err, returnData) {
+shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
   // ShapeShift owned BTC address that you send your BTC to
   var depositAddress = returnData.deposit
+
+  // NOTE: `depositAmount`, `expiration`, and `quotedRate` are only returned if
+  // you set `options.amount`
 
   // amount to send to ShapeShift (type string)
   var shiftAmount = returnData.depositAmount
@@ -260,8 +252,8 @@ shapeshift.shiftFixed(withdrawalAddress, pair, amount, options, function (err, r
   })
 })
 ```
-
-Entire integration test found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift-fixed.test.js
+Entire integration tests found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift.test.js
+and https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift-fixed.test.js
 
 
 

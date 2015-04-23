@@ -1,6 +1,7 @@
 1.0.0 / 2015-04-21
 ------------------
 - renamed `depositStatus()` to `status()`
+- merged `shift()` and `shiftFixed()` into just `shift()`
 
 0.1.0 / 2015-04-21
 ------------------

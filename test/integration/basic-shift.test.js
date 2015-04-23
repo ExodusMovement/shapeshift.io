@@ -34,9 +34,6 @@ describe('shapeshift / integration', function () {
 
         console.dir(returnData)
 
-        assert.equal(returnData.depositType, 'BTC')
-        assert.equal(returnData.withdrawalType, 'LTC')
-
         var depositAddress = returnData.deposit
 
         spend(SS_BTC_WIF, depositAddress, shiftAmount, function (err, txId) {

@@ -25,15 +25,17 @@ describe('shapeshift / integration', function () {
       var pair = 'btc_ltc'
       var amount = '0.03' // we want 0.03 LTC
       var options = {
-        returnAddress: btcKey.publicAddress
+        returnAddress: btcKey.publicAddress,
+        amount: amount
       }
 
-      shapeshift.shiftFixed(withdrawalAddress, pair, amount, options, function (err, returnData) {
+      shapeshift.shift(withdrawalAddress, pair, options, function (err, returnData) {
         assert.ifError(err)
         assert(returnData, 'No return data')
 
         console.dir(returnData)
 
+        // only when options.amount is set
         assert('expiration' in returnData)
         assert('quotedRate' in returnData)
         assert('minerFee' in returnData)
