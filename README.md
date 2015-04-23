@@ -347,6 +347,20 @@ shapeshift.http.get = function (url, callback) {
 ```
 
 
+#### http.post
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var oldPost = shapeshift.http.post
+shapeshift.http.get = function (url, data, callback) {
+  // use another http library?
+}
+```
+
+
 ### CORS
 
 ShapeShift supports CORS so that you can do cross-domain requests in the browser. See
