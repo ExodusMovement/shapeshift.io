@@ -126,7 +126,7 @@ shapeshift.deposit(depositAddress, function (err, status, data) {
   if (status !== 'completed') return
 
   var txId = data.transaction
-  shapeshift.emailReceipt('YOUR_EMAIL_ADDRESS', txId, funtion (err, data) {
+  shapeshift.emailReceipt('YOUR_EMAIL_ADDRESS', txId, function (err, data) {
     if (data.status === 'success') {
       console.log('email sent!')
     }

@@ -1,4 +1,4 @@
-0.x.x / 2015-04-xx
+0.0.4 / 2015-04-21
 ------------------
 - remove converting to `Date` in `recent()`
 - added `shiftFixed()`
