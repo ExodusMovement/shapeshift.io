@@ -27,7 +27,6 @@ describe('shapeshift', function () {
       shapeshift.depositLimit(pair, function (err, limit) {
         assert.ifError(err)
         assert.equal(typeof limit, 'string')
-        assert(parseFloat(limit) > 1)
         done()
       })
     })
