@@ -1,14 +1,14 @@
 {
   "name": "shapeshift.io",
   "version": "0.0.4",
-  "description": "A component for shapeshift.io crypto currency API",
+  "description": "A component for shapeshift.io crypto currency API.",
   "main": "lib/shapeshift.js",
   "scripts": {
     "test": "standard && mocha --recursive --timeout 30s"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jprichardson/shapeshift.js"
+    "url": "https://github.com/jprichardson/shapeshift.io"
   },
   "keywords": [
     "crypto",
@@ -27,9 +27,9 @@
   "author": "JP Richardson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jprichardson/shapeshift.js/issues"
+    "url": "https://github.com/jprichardson/shapeshift.io/issues"
   },
-  "homepage": "https://github.com/jprichardson/shapeshift.js",
+  "homepage": "https://github.com/jprichardson/shapeshift.io",
   "devDependencies": {
     "cb-insight": "^0.1.0",
     "coininfo": "^0.4.0",
