@@ -196,6 +196,59 @@ Entire integration test found here: https://github.com/jprichardson/shapeshift.j
 
 
 
+### shiftFixed()
+
+Convert a fixed amount of coins. Useful for payment services.
+
+Reference: https://shapeshift.io/api.html#sendamount
+
+Method: `shiftFixed(withdrawalAddress, pair, amount, options, callback)`
+
+**Example:**
+
+```js
+// example: converting BTC to a Fixed Amount of LTC
+
+var shapeshift = require('shapeshift')
+
+var withdrawalAddress = 'YOUR_LTC_ADDRESS'
+var pair = 'btc_ltc'
+var amount = '0.1' // LTC amount that you want to receive to your LTC address
+
+// if something fails
+var options = {
+  returnAddress: 'YOUR_BTC_RETURN_ADDRESS'
+}
+
+shapeshift.shiftFixed(withdrawalAddress, pair, amount, options, function (err, returnData) {
+  // ShapeShift owned BTC address that you send your BTC to
+  var depositAddress = returnData.deposit
+
+  // amount to send to ShapeShift (type string)
+  var shiftAmount = returnData.depositAmount
+
+  // Time before rate expires (type number, time from epoch in seconds)
+  var expiration = new Date(returnData.expiration * 1000)
+
+  // rate of exchange, 1 BTC for ??? LTC (type string)
+  var rate = returnData.quotedRate
+
+  // you need to actually then send your BTC to ShapeShift
+  // you could use module `spend`: https://www.npmjs.com/package/spend
+  // CONVERT AMOUNT TO SATOSHIS IF YOU USED `spend`
+  // spend(SS_BTC_WIF, depositAddress, shiftAmountSatoshis, function (err, txId) { /.. ../ })
+
+  // later, you can then check the deposit status
+  shapeshift.depositStatus(depositAddress, function (err, status, data) {
+    console.log(status) // => should be 'received' or 'complete'
+  })
+})
+```
+
+Entire integration test found here: https://github.com/jprichardson/shapeshift.js/blob/master/test/integration/basic-shift-fixed.test.js
+
+
+
 ### Intercept HTTP
 
 You can intercept/modify http methods. This may be useful if you want to use an alternative http

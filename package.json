@@ -34,6 +34,7 @@
     "cb-insight": "^0.1.0",
     "coininfo": "^0.4.0",
     "coinkey": "^1.4.0",
+    "decimal.js": "^4.0.2",
     "mocha": "*",
     "ms": "^0.7.1",
     "nock": "^1.6.0",
