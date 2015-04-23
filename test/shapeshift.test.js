@@ -1,4 +1,5 @@
 var assert = require('assert')
+var secureRandom = require('secure-random')
 var shapeshift = require('../')
 
 /* global describe, it */
@@ -70,6 +71,18 @@ describe('shapeshift', function () {
         assert('curOut' in recent[0])
         assert('timestamp' in recent[0])
         assert('amount' in recent[0])
+        done()
+      })
+    })
+  })
+
+  describe('+ transactions()', function () {
+    it('should get a list of transactions by an API key', function (done) {
+      var somePrivKey = sr.randomBuffer(32).toString('hex')
+      shapeshift.transactions(somePrivKey, function (err, data) {
+        assert.ifError(err)
+        assert(Array.isArray(data))
+        assert.equal(data.length, 0)
         done()
       })
     })
