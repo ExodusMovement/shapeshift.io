@@ -117,7 +117,7 @@ var shapeshift = require('shapeshift.io')
 var depositAddress = 'YOUR_DEPOSIT_ADDRESS'
 shapeshift.deposit(depositAddress, function (err, status, data) {
   // status must be 'complete'
-  if (status !== 'completed') return
+  if (status !== 'complete') return
 
   var txId = data.transaction
   shapeshift.emailReceipt('YOUR_EMAIL_ADDRESS', txId, function (err, data) {
@@ -391,7 +391,7 @@ That simple.
 Wanna Hack on shapeshift.io package?
 ------------------------------------
 
-Awesome. First not that this package uses [JavaScript Standard Style](https://github.com/feross/standard).
+Awesome. First, this package uses [JavaScript Standard Style](https://github.com/feross/standard).
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
