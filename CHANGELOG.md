@@ -1,3 +1,7 @@
+x.y.z / 2015-xx-yy
+------------------
+- added `marketInfo()` See: https://github.com/jprichardson/shapeshift.io/pull/1
+
 1.0.0 / 2015-04-21
 ------------------
 - renamed `depositStatus()` to `status()`
