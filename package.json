@@ -5,6 +5,7 @@
   "main": "lib/shapeshift.js",
   "scripts": {
     "build-browser": "browserify ./ -s shapeshift -o dist/shapeshift.js",
+    "standard": "standard",
     "test": "standard && mocha --recursive --timeout 30s"
   },
   "repository": {
