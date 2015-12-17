@@ -355,7 +355,7 @@ shapeshift.http.get = function (url, callback) {
 var shapeshift = require('shapeshift.io')
 
 var oldPost = shapeshift.http.post
-shapeshift.http.get = function (url, data, callback) {
+shapeshift.http.post = function (url, data, callback) {
   // use another http library?
 }
 ```
@@ -413,7 +413,4 @@ License
 
 MIT
 
-
-
-
-
+Copyright (c) 2015 [JP Richardson](https://github.com/jprichardson)
