@@ -1,8 +1,13 @@
 shapeshift.io
 =============
 
-A JavaScript component for the crypto currency buying and selling shapeshift.io service. Works in
-both Node.js and the browser. API documentation here: https://shapeshift.io/api.html
+A JavaScript component for the crypto currency buying and selling [ShapesShift.io](https://shapeshift.io/) service.
+
+You can use [ShapeShift.io](https://shapeshift.io/) to instantly exchange Bitcoin for Litecoin and other
+crypto currencies with no signup/account needed. Use [Exodus](http://www.exodus.io/) to manage your
+crypto currency portfolios and easily exchange currencies with ShapeShift.
+
+Works in both Node.js and the browser. API documentation here: https://shapeshift.io/api.html
 
 
 Usage
@@ -42,7 +47,8 @@ mean the same thing (obviously not input/output), namely a currency abbreviation
 - [coins()](#coins)
 - [depositLimit()](#depositlimit)
 - [emailReceipt()](#emailreceipt)
-- [exchangeRate()](#exchangeRate)
+- [exchangeRate()](#exchangerate)
+- [marketInfo()](#marketinfo)
 - [recent()](#recent)
 - [shift()](#shift)
 - [status()](#status)
@@ -146,6 +152,35 @@ shapeshift.exchangeRate(pair, function (err, rate) {
   console.dir(rate) // => '158.71815287'
 })
 ```
+
+
+### marketInfo()
+
+Get the market information.
+
+Reference: https://shapeshift.io/api#api-103
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+var pair = 'btc_ltc' // pair is optional
+shapeshift.marketInfo(pair, function (err, marketInfo) {
+  console.dir(marketInfo)
+  /* =>
+    {
+      "rate": "121.25912408",
+      "limit": 2.24854014,
+      "pair": "btc_ltc",
+      "minimum": 0.0000492,
+      "minerFee": 0.003
+    }
+  */
+})
+```
+
+**Note:** When `pair` is not passed, the field in the info changes from `minimum` to `min`.
 
 
 #### recent()
