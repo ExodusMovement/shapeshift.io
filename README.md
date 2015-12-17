@@ -359,6 +359,9 @@ shapeshift.transactions(somePrivKey, function (err, transactions) {
 })
 ```
 
+### __version
+
+Get the version number of this module. Useful in `<script/>` tag browser development.
 
 
 ### Intercept HTTP
