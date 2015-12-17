@@ -1,7 +1,8 @@
-x.y.z / 2015-xx-yy
+1.1.0 / 2015-12-17
 ------------------
 - added `marketInfo()` See: https://github.com/jprichardson/shapeshift.io/pull/1
 - moved testing from mocha to ava
+- added `__version`
 
 1.0.0 / 2015-04-21
 ------------------

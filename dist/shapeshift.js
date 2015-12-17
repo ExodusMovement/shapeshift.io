@@ -105,15 +105,63 @@ process.umask = function() { return 0; };
 "use strict";
 var window = require("global/window")
 var once = require("once")
+var isFunction = require("is-function")
 var parseHeaders = require("parse-headers")
-
-
-var XHR = window.XMLHttpRequest || noop
-var XDR = "withCredentials" in (new XHR()) ? XHR : window.XDomainRequest
+var xtend = require("xtend")
 
 module.exports = createXHR
+createXHR.XMLHttpRequest = window.XMLHttpRequest || noop
+createXHR.XDomainRequest = "withCredentials" in (new createXHR.XMLHttpRequest()) ? createXHR.XMLHttpRequest : window.XDomainRequest
 
-function createXHR(options, callback) {
+forEachArray(["get", "put", "post", "patch", "head", "delete"], function(method) {
+    createXHR[method === "delete" ? "del" : method] = function(uri, options, callback) {
+        options = initParams(uri, options, callback)
+        options.method = method.toUpperCase()
+        return _createXHR(options)
+    }
+})
+
+function forEachArray(array, iterator) {
+    for (var i = 0; i < array.length; i++) {
+        iterator(array[i])
+    }
+}
+
+function isEmpty(obj){
+    for(var i in obj){
+        if(obj.hasOwnProperty(i)) return false
+    }
+    return true
+}
+
+function initParams(uri, options, callback) {
+    var params = uri
+
+    if (isFunction(options)) {
+        callback = options
+        if (typeof uri === "string") {
+            params = {uri:uri}
+        }
+    } else {
+        params = xtend(options, {uri: uri})
+    }
+
+    params.callback = callback
+    return params
+}
+
+function createXHR(uri, options, callback) {
+    options = initParams(uri, options, callback)
+    return _createXHR(options)
+}
+
+function _createXHR(options) {
+    var callback = options.callback
+    if(typeof callback === "undefined"){
+        throw new Error("callback argument missing")
+    }
+    callback = once(callback)
+
     function readystatechange() {
         if (xhr.readyState === 4) {
             loadFunc()
@@ -138,7 +186,7 @@ function createXHR(options, callback) {
 
         return body
     }
-    
+
     var failureResponse = {
                 body: undefined,
                 headers: {},
@@ -147,11 +195,11 @@ function createXHR(options, callback) {
                 url: uri,
                 rawRequest: xhr
             }
-    
+
     function errorFunc(evt) {
         clearTimeout(timeoutTimer)
         if(!(evt instanceof Error)){
-            evt = new Error("" + (evt || "unknown") )
+            evt = new Error("" + (evt || "Unknown XMLHttpRequest Error") )
         }
         evt.statusCode = 0
         callback(evt, failureResponse)
@@ -159,12 +207,18 @@ function createXHR(options, callback) {
 
     // will load the data & process the response in a special response object
     function loadFunc() {
+        if (aborted) return
+        var status
         clearTimeout(timeoutTimer)
-        
-        var status = (xhr.status === 1223 ? 204 : xhr.status)
+        if(options.useXDR && xhr.status===undefined) {
+            //IE8 CORS GET successful response doesn't have a status field, but body is fine
+            status = 200
+        } else {
+            status = (xhr.status === 1223 ? 204 : xhr.status)
+        }
         var response = failureResponse
         var err = null
-        
+
         if (status !== 0){
             response = {
                 body: getBody(),
@@ -181,33 +235,24 @@ function createXHR(options, callback) {
             err = new Error("Internal XMLHttpRequest Error")
         }
         callback(err, response, response.body)
-        
-    }
-    
-    if (typeof options === "string") {
-        options = { uri: options }
-    }
 
-    options = options || {}
-    if(typeof callback === "undefined"){
-        throw new Error("callback argument missing")
     }
-    callback = once(callback)
 
     var xhr = options.xhr || null
 
     if (!xhr) {
         if (options.cors || options.useXDR) {
-            xhr = new XDR()
+            xhr = new createXHR.XDomainRequest()
         }else{
-            xhr = new XHR()
+            xhr = new createXHR.XMLHttpRequest()
         }
     }
 
     var key
+    var aborted
     var uri = xhr.url = options.uri || options.url
     var method = xhr.method = options.method || "GET"
-    var body = options.body || options.data
+    var body = options.body || options.data || null
     var headers = xhr.headers = options.headers || {}
     var sync = !!options.sync
     var isJson = false
@@ -215,9 +260,9 @@ function createXHR(options, callback) {
 
     if ("json" in options) {
         isJson = true
-        headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
+        headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
         if (method !== "GET" && method !== "HEAD") {
-            headers["Content-Type"] = "application/json"
+            headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json") //Don't override existing accept header declared by user
             body = JSON.stringify(options.json)
         }
     }
@@ -230,17 +275,22 @@ function createXHR(options, callback) {
         // IE must die
     }
     xhr.ontimeout = errorFunc
-    xhr.open(method, uri, !sync)
+    xhr.open(method, uri, !sync, options.username, options.password)
     //has to be after open
-    xhr.withCredentials = !!options.withCredentials
-    
+    if(!sync) {
+        xhr.withCredentials = !!options.withCredentials
+    }
     // Cannot set timeout with sync request
     // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
     // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
     if (!sync && options.timeout > 0 ) {
         timeoutTimer = setTimeout(function(){
-            xhr.abort("timeout");
-        }, options.timeout+2 );
+            aborted=true//IE9 may still call readystatechange
+            xhr.abort("timeout")
+            var e = new Error("XMLHttpRequest timeout")
+            e.code = "ETIMEDOUT"
+            errorFunc(e)
+        }, options.timeout )
     }
 
     if (xhr.setRequestHeader) {
@@ -249,15 +299,15 @@ function createXHR(options, callback) {
                 xhr.setRequestHeader(key, headers[key])
             }
         }
-    } else if (options.headers) {
+    } else if (options.headers && !isEmpty(options.headers)) {
         throw new Error("Headers cannot be set on an XDomainRequest object")
     }
 
     if ("responseType" in options) {
         xhr.responseType = options.responseType
     }
-    
-    if ("beforeSend" in options && 
+
+    if ("beforeSend" in options &&
         typeof options.beforeSend === "function"
     ) {
         options.beforeSend(xhr)
@@ -270,10 +320,9 @@ function createXHR(options, callback) {
 
 }
 
-
 function noop() {}
 
-},{"global/window":6,"once":7,"parse-headers":11}],6:[function(require,module,exports){
+},{"global/window":6,"is-function":7,"once":8,"parse-headers":11,"xtend":12}],6:[function(require,module,exports){
 (function (global){
 if (typeof window !== "undefined") {
     module.exports = window;
@@ -287,6 +336,23 @@ if (typeof window !== "undefined") {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],7:[function(require,module,exports){
+module.exports = isFunction
+
+var toString = Object.prototype.toString
+
+function isFunction (fn) {
+  var string = toString.call(fn)
+  return string === '[object Function]' ||
+    (typeof fn === 'function' && string !== '[object RegExp]') ||
+    (typeof window !== 'undefined' &&
+     // IE8 and below
+     (fn === window.setTimeout ||
+      fn === window.alert ||
+      fn === window.confirm ||
+      fn === window.prompt))
+};
+
+},{}],8:[function(require,module,exports){
 module.exports = once
 
 once.proto = once(function () {
@@ -307,7 +373,7 @@ function once (fn) {
   }
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var isFunction = require('is-function')
 
 module.exports = forEach
@@ -355,24 +421,7 @@ function forEachObject(object, iterator, context) {
     }
 }
 
-},{"is-function":9}],9:[function(require,module,exports){
-module.exports = isFunction
-
-var toString = Object.prototype.toString
-
-function isFunction (fn) {
-  var string = toString.call(fn)
-  return string === '[object Function]' ||
-    (typeof fn === 'function' && string !== '[object RegExp]') ||
-    (typeof window !== 'undefined' &&
-     // IE8 and below
-     (fn === window.setTimeout ||
-      fn === window.alert ||
-      fn === window.confirm ||
-      fn === window.prompt))
-};
-
-},{}],10:[function(require,module,exports){
+},{"is-function":7}],10:[function(require,module,exports){
 
 exports = module.exports = trim;
 
@@ -420,15 +469,37 @@ module.exports = function (headers) {
 
   return result
 }
-},{"for-each":8,"trim":10}],12:[function(require,module,exports){
+},{"for-each":9,"trim":10}],12:[function(require,module,exports){
+module.exports = extend
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+function extend() {
+    var target = {}
+
+    for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+            if (hasOwnProperty.call(source, key)) {
+                target[key] = source[key]
+            }
+        }
+    }
+
+    return target
+}
+
+},{}],13:[function(require,module,exports){
 module.exports={
   "name": "shapeshift.io",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A component for shapeshift.io crypto currency API.",
   "main": "lib/shapeshift.js",
   "scripts": {
     "build-browser": "browserify ./ -s shapeshift -o dist/shapeshift.js",
-    "test": "standard && mocha --recursive --timeout 30s"
+    "standard": "standard",
+    "test": "standard && ava test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -455,18 +526,18 @@ module.exports={
   },
   "homepage": "https://github.com/jprichardson/shapeshift.io",
   "devDependencies": {
+    "ava": "^0.8.0",
     "browserify": "^9.0.8",
     "cb-insight": "^0.1.0",
     "coininfo": "^0.4.0",
     "coinkey": "^1.4.0",
     "decimal.js": "^4.0.2",
-    "mocha": "^2.2.4",
     "ms": "^0.7.1",
     "nock": "^1.6.0",
     "proxyquire": "^1.4.0",
     "secure-random": "^1.1.1",
     "spend": "0.0.1",
-    "standard": "^3.0"
+    "standard": "^5.3.1"
   },
   "dependencies": {
     "request": "^2.55.0",
@@ -479,7 +550,7 @@ module.exports={
   }
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var http = require('./http')
 var util = require('./util')
 
@@ -508,7 +579,7 @@ function depositLimit (pair, callback) {
 
 function emailReceipt (emailAddress, txId, callback) {
   var url = getBaseUrl() + '/mail'
-  http.post(url, { email: emailAddress, txid: txId}, function (err, data) {
+  http.post(url, { email: emailAddress, txid: txId }, function (err, data) {
     if (err) return callback(err)
     if (data.error) return callback(new Error(data.error), data)
     callback(null, data.email)
@@ -522,6 +593,20 @@ function exchangeRate (pair, callback) {
   http.get(url, function (err, data) {
     if (err) return callback(err)
     callback(null, data.rate)
+  })
+}
+
+function marketInfo (pair, callback) {
+  // no pair passed
+  if (typeof pair === 'function') {
+    callback = pair
+    pair = ''
+  }
+
+  var url = getBaseUrl() + '/marketinfo/' + pair
+  http.get(url, function (err, info) {
+    if (err) return callback(err)
+    callback(null, info)
   })
 }
 
@@ -611,13 +696,15 @@ module.exports = {
   depositLimit: depositLimit,
   emailReceipt: emailReceipt,
   exchangeRate: exchangeRate,
+  marketInfo: marketInfo,
   recent: recent,
   shift: shift,
   _shift: _shift,
   _shiftFixed: _shiftFixed,
   status: status,
-  transactions: transactions
+  transactions: transactions,
+  __version: pkg.version
 }
 
-},{"../package":12,"./http":2,"./util":3}]},{},[13])(13)
+},{"../package":13,"./http":2,"./util":3}]},{},[14])(14)
 });
