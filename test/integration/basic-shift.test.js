@@ -51,7 +51,7 @@ describe('shapeshift / integration', function () {
 
               done()
             })
-          }, ms('10s'))
+          }, ms('60s'))
         })
       })
     })
