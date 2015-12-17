@@ -1,5 +1,7 @@
-var test = require('tape')
+var test = require('ava')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('> when setting cors to false, should set the shapeshift url to the endpoint that does not use cors', function (t) {
   t.plan(2)

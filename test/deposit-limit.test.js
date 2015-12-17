@@ -1,5 +1,7 @@
-var test = require('tape')
+var test = require('ava')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('should get the deposit limit', function (t) {
   t.plan(2)

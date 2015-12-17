@@ -1,5 +1,7 @@
-var test = require('tape')
+var test = require('ava')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('should get an array of supported coins', function (t) {
   t.plan(6)

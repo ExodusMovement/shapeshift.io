@@ -1,5 +1,7 @@
-var test = require('tape')
+var test = require('ava')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('> when intercepting http get, should call external http get', function (t) {
   t.plan(3)

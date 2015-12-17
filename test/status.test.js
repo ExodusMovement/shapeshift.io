@@ -1,5 +1,7 @@
-var test = require('tape')
+var test = require('ava')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('should get status of deposit address with valid address', function (t) {
   t.plan(10)

@@ -1,6 +1,8 @@
-var test = require('tape')
+var test = require('ava')
 var secureRandom = require('secure-random')
 var shapeshift = require('../')
+
+test = test.cb
 
 test('should get a list of transactions by an API key', function (t) {
   t.plan(3)

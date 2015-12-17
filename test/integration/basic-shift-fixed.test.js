@@ -15,7 +15,7 @@ var SS_LTC_WIF = process.env.SS_LTC_WIF
 
 spend.blockchain = new Blockchain('https://insight.bitpay.com')
 
-describe('shapeshift / integration', function () {
+describe.skip('shapeshift / integration', function () {
   describe('basic shift fixed amount - exchange BTC for LTC', function () {
     runIT('should shift', function (done) {
       var ltcKey = CoinKey.fromWif(SS_LTC_WIF)
