@@ -2,16 +2,6 @@
   "name": "shapeshift.io",
   "version": "1.1.0",
   "description": "A component for shapeshift.io crypto currency API.",
-  "main": "./index.js",
-  "scripts": {
-    "lint": "standard",
-    "test": "npm run lint && npm run unit",
-    "unit": "tape test/*.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jprichardson/shapeshift.io"
-  },
   "keywords": [
     "crypto",
     "crypto",
@@ -26,27 +16,38 @@
     "counterparty",
     "blackcoin"
   ],
-  "author": "JP Richardson",
-  "license": "MIT",
+  "homepage": "https://github.com/ExodusMovement/shapeshift.io",
   "bugs": {
-    "url": "https://github.com/jprichardson/shapeshift.io/issues"
+    "url": "https://github.com/ExodusMovement/shapeshift.io/issues"
   },
-  "homepage": "https://github.com/jprichardson/shapeshift.io",
+  "license": "MIT",
+  "author": "JP Richardson",
+  "files": [
+    "browser.js",
+    "index.js"
+  ],
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ExodusMovement/shapeshift.io"
+  },
+  "scripts": {
+    "coverage": "nyc npm run unit",
+    "lint": "standard",
+    "test": "npm run lint && npm run unit",
+    "unit": "tape test/*.js"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  },
   "devDependencies": {
     "cb-insight": "^0.1.0",
-    "coininfo": "^0.4.0",
     "coinkey": "^1.4.0",
     "decimal.js": "^4.0.2",
     "ms": "^0.7.1",
-    "nock": "^1.6.0",
-    "proxyquire": "^1.4.0",
     "spend": "0.0.1",
     "standard": "^6.0.8",
     "tape": "^4.5.1"
-  },
-  "dependencies": {
-    "xhr": "^2.0.1",
-    "xmlhttprequest": "^1.8.0"
   },
   "browser": "./browser.js"
 }
