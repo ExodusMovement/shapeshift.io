@@ -8,7 +8,7 @@
     cors: true,
 
     // for intercepting http
-    XHR: typeof XMLHttpRequest !== 'undefined' ? XMLHttpRequest : null,
+    XMLHttpRequest: typeof XMLHttpRequest !== 'undefined' ? XMLHttpRequest : null,
 
     // for custom Promise
     Promise: typeof Promise !== 'undefined' ? Promise : null
@@ -99,7 +99,7 @@
       var args = [].slice.call(arguments)
       var callback = args[args.length - 1]
 
-      if (typeof shapeshift.Promise === 'undefined') {
+      if (shapeshift.Promise === null) {
         if (typeof callback !== 'function') throw new Error('callback expected, because Promise doesn\'t supported')
         return void fn.apply(null, args)
       }

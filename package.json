@@ -35,15 +35,24 @@
     "coverage": "nyc npm run unit",
     "lint": "standard",
     "test": "npm run lint && npm run unit",
-    "unit": "tape test/*.js"
+    "unit": "npm run unit:node && npm run unit:browser",
+    "unit:node": "tape test/*.js",
+    "unit:browser": "karma start karma.conf.js"
   },
   "dependencies": {
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
+    "browserify": "^13.0.0",
     "cb-insight": "^0.1.0",
     "coinkey": "^1.4.0",
     "decimal.js": "^4.0.2",
+    "karma": "^0.13.19",
+    "karma-browserify": "^5.0.1",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-detect-browsers": "^2.0.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-tap": "^1.0.3",
     "ms": "^0.7.1",
     "spend": "0.0.1",
     "standard": "^6.0.8",
