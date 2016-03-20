@@ -2,9 +2,8 @@
   "name": "shapeshift.io",
   "version": "1.1.0",
   "description": "A component for shapeshift.io crypto currency API.",
-  "main": "lib/shapeshift.js",
+  "main": "./index.js",
   "scripts": {
-    "build-browser": "browserify ./ -s shapeshift -o dist/shapeshift.js",
     "lint": "standard",
     "test": "npm run lint && npm run unit",
     "unit": "tape test/*.js"
@@ -34,7 +33,6 @@
   },
   "homepage": "https://github.com/jprichardson/shapeshift.io",
   "devDependencies": {
-    "browserify": "^9.0.8",
     "cb-insight": "^0.1.0",
     "coininfo": "^0.4.0",
     "coinkey": "^1.4.0",
@@ -47,12 +45,8 @@
     "tape": "^4.5.1"
   },
   "dependencies": {
-    "request": "^2.55.0",
-    "xhr": "^2.0.1"
+    "xhr": "^2.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
-  "standard": {
-    "ignore": [
-      "dist/shapeshift.js"
-    ]
-  }
+  "browser": "./browser.js"
 }
