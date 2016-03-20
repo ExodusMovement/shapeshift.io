@@ -31,7 +31,7 @@
     return base + [].slice.call(arguments).join('/')
   }
 
-  function request (url, data, callback) {
+  shapeshift.request = function (url, data, callback) {
     var method = data === null ? 'GET' : 'POST'
     var aborted = false
 
@@ -126,12 +126,12 @@
   // shapeshift functions
   shapeshift.coins = promisify(function (callback) {
     var url = getURL('getcoins')
-    request(url, null, callback)
+    shapeshift.request(url, null, callback)
   })
 
   shapeshift.depositLimit = promisify(function (pair, callback) {
     var url = getURL('limit', pair.toLowerCase())
-    request(url, null, function (err, data) {
+    shapeshift.request(url, null, function (err, data) {
       if (err) return callback(err)
       callback(null, data.limit)
     })
@@ -139,7 +139,7 @@
 
   shapeshift.emailReceipt = promisify(function (emailAddress, txId, callback) {
     var url = getURL('mail')
-    request(url, { email: emailAddress, txid: txId }, function (err, data) {
+    shapeshift.request(url, { email: emailAddress, txid: txId }, function (err, data) {
       if (err) return callback(err)
       if (data.error) return callback(new Error(data.error), data)
       callback(null, data.email)
@@ -148,7 +148,7 @@
 
   shapeshift.exchangeRate = promisify(function (pair, callback) {
     var url = getURL('rate', pair.toLowerCase())
-    request(url, null, function (err, data) {
+    shapeshift.request(url, null, function (err, data) {
       if (err) return callback(err)
       callback(null, data.rate)
     })
@@ -162,12 +162,12 @@
     }
 
     var url = getURL('marketinfo', pair)
-    request(url, null, callback)
+    shapeshift.request(url, null, callback)
   })
 
   shapeshift.recent = promisify(function (callback) {
     var url = getURL('recenttx', '50')
-    request(url, null, callback)
+    shapeshift.request(url, null, callback)
   })
 
   shapeshift.shift = promisify(function (withdrawalAddress, pair, options, callback) {
@@ -183,7 +183,7 @@
     var payload = clone(options)
     payload.withdrawal = withdrawalAddress
     payload.pair = pair
-    request(url, payload, function (err, data) {
+    shapeshift.request(url, payload, function (err, data) {
       if (err) return callback(err, data)
       if (data.error) return callback(new Error(data.error), data)
       callback(null, data)
@@ -196,7 +196,7 @@
     payload.withdrawal = withdrawalAddress
     payload.pair = pair
     payload.amount = amount
-    request(url, payload, function (err, data) {
+    shapeshift.request(url, payload, function (err, data) {
       if (err) return callback(err, data)
       if (data.error) return callback(new Error(data.error), data)
       // shapeshift is inconsistent here, notice in `shift()` there is no success field
@@ -206,7 +206,7 @@
 
   shapeshift.status = promisify(function (depositAddress, callback) {
     var url = getURL('txStat', depositAddress)
-    request(url, null, function (err, data) {
+    shapeshift.request(url, null, function (err, data) {
       if (err) return callback(err)
       if (data.error) return callback(new Error(data.error), data.status, data)
       callback(null, data.status, data)
@@ -223,7 +223,7 @@
       ? getURL('txbyapikey', apiKey)
       : getURL('txbyaddress', address, apiKey)
 
-    request(url, null, function (err, data) {
+    shapeshift.request(url, null, function (err, data) {
       if (err) return callback(err, data)
       if (!Array.isArray(data)) return callback(new Error('Data is not of type array. Possible error?'), data)
       callback(null, data)
