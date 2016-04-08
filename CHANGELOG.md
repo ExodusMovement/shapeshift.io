@@ -1,3 +1,8 @@
+1.2.0 / 2016-04-08
+------------------
+- bug fix: browser version [#2][#2]
+- added method `isDown()`
+
 1.1.0 / 2015-12-17
 ------------------
 - added `marketInfo()` See: https://github.com/jprichardson/shapeshift.io/pull/1
@@ -38,3 +43,10 @@
 0.0.1 / 2015-04-13
 ------------------
 - initial commit
+
+<!--- promise support; removing dependencies for browser [enhancement] -->
+[#3]: https://github.com/ExodusMovement/shapeshift.io/pull/3
+<!--- Shift doesn't work -->
+[#2]: https://github.com/ExodusMovement/shapeshift.io/issues/2
+<!--- add func marketInfo -->
+[#1]: https://github.com/ExodusMovement/shapeshift.io/pull/1

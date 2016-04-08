@@ -493,7 +493,7 @@ function extend() {
 },{}],13:[function(require,module,exports){
 module.exports={
   "name": "shapeshift.io",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A component for shapeshift.io crypto currency API.",
   "main": "lib/shapeshift.js",
   "scripts": {
