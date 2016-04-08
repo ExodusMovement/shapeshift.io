@@ -596,6 +596,13 @@ function exchangeRate (pair, callback) {
   })
 }
 
+function isDown (callback) {
+  marketInfo('btc_ltc', function (err, info) {
+    if (err) return callback(err, true)
+    else return callback(null, false)
+  })
+}
+
 function marketInfo (pair, callback) {
   // no pair passed
   if (typeof pair === 'function') {
@@ -696,6 +703,7 @@ module.exports = {
   depositLimit: depositLimit,
   emailReceipt: emailReceipt,
   exchangeRate: exchangeRate,
+  isDown: isDown,
   marketInfo: marketInfo,
   recent: recent,
   shift: shift,

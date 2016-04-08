@@ -48,6 +48,7 @@ mean the same thing (obviously not input/output), namely a currency abbreviation
 - [depositLimit()](#depositlimit)
 - [emailReceipt()](#emailreceipt)
 - [exchangeRate()](#exchangerate)
+- [isDown()](#isdown)
 - [marketInfo()](#marketinfo)
 - [recent()](#recent)
 - [shift()](#shift)
@@ -150,6 +151,21 @@ var shapeshift = require('shapeshift.io')
 var pair = 'btc_ltc'
 shapeshift.exchangeRate(pair, function (err, rate) {
   console.dir(rate) // => '158.71815287'
+})
+```
+
+
+### isDown()
+
+Check if ShapeShift is down or in maintenance.
+
+**Example:**
+
+```js
+var shapeshift = require('shapeshift.io')
+
+shapeshift.isDown(function (err, isDown) {
+  console.log(isDown) // => true or false
 })
 ```
 
