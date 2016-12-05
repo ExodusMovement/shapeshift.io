@@ -2,10 +2,12 @@ Unreleased
 ----------
 
 ### Added
+- TravisCI
 
 ### Removed
 
 ### Changed
+- using `yarn` instead of `npm`
 
 ### Fixed
 
