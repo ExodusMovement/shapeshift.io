@@ -7,7 +7,7 @@
     "build-browser": "browserify ./ -s shapeshift -o dist/shapeshift.js",
     "lint": "standard",
     "test": "npm run lint && npm run unit",
-    "unit": "tape test/*.js"
+    "unit": "tape test/*test.js | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,8 @@
     "proxyquire": "^1.4.0",
     "spend": "0.0.1",
     "standard": "^6.0.8",
-    "tape": "^4.5.1"
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
   },
   "dependencies": {
     "request": "^2.55.0",

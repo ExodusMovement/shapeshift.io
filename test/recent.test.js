@@ -1,4 +1,4 @@
-var test = require('tape').test
+var test = require('tape')
 var shapeshift = require('../')
 
 test('should get a list of recent transactions', function (t) {

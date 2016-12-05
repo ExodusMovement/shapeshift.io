@@ -1,7 +1,5 @@
-var test = require('ava')
+var test = require('tape')
 var shapeshift = require('../')
-
-test = test.cb
 
 test('check if ShapeShift is down', function (t) {
   t.plan(2)
