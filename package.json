@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jprichardson/shapeshift.io"
+    "url": "https://github.com/exodusmovement/shapeshift.io"
   },
   "keywords": [
     "crypto",
@@ -30,9 +30,9 @@
   "author": "JP Richardson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jprichardson/shapeshift.io/issues"
+    "url": "https://github.com/exodusmovement/shapeshift.io/issues"
   },
-  "homepage": "https://github.com/jprichardson/shapeshift.io",
+  "homepage": "https://github.com/exodusmovement/shapeshift.io",
   "devDependencies": {
     "browserify": "^9.0.8",
     "cb-insight": "^0.1.0",
