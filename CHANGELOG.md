@@ -1,3 +1,15 @@
+Unreleased
+----------
+
+### Added
+
+### Removed
+
+### Changed
+
+### Fixed
+
+
 1.2.0 / 2016-04-08
 ------------------
 - bug fix: browser version [#2][#2]
