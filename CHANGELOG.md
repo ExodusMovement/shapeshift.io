@@ -8,6 +8,7 @@ Unreleased
 
 ### Changed
 - using `yarn` instead of `npm`
+- upgraded `standard`
 
 ### Fixed
 
