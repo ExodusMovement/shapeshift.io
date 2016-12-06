@@ -4,6 +4,7 @@ Unreleased
 ### Added
 - TravisCI
 - `sendAmount()`, already had `_shiftFixed` which did the same thing.
+- `quote()`
 
 ### Removed
 
