@@ -3,7 +3,6 @@ shapeshift.io
 
 [![NPM Package](https://img.shields.io/npm/v/shapeshift.io.svg?style=flat-square)](https://www.npmjs.org/package/shapeshift.io)
 [![Build Status](https://img.shields.io/travis/ExodusMovement/shapeshift.io.svg?branch=master&style=flat-square)](https://travis-ci.org/ExodusMovement/shapeshift.io)
-[![Dependency status](https://img.shields.io/david/ExodusMovement/shapeshift.io.svg?style=flat-square)](https://david-dm.org/ExodusMovement/shapeshift.io#info=dependencies)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 A JavaScript component for the crypto currency buying and selling [ShapesShift.io](https://shapeshift.io/) service.
