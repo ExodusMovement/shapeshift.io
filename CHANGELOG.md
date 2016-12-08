@@ -2,17 +2,25 @@ Unreleased
 ----------
 
 ### Added
-- TravisCI
-- `sendAmount()`, already had `_shiftFixed` which did the same thing.
-- `quote()`
 
 ### Removed
 
 ### Changed
-- using `yarn` instead of `npm`
-- upgraded `standard`
 
 ### Fixed
+
+
+1.3.0 / 2016-04-08
+------------------
+
+### Added
+- TravisCI
+- `sendAmount()`, already had `_shiftFixed` which did the same thing.
+- `quote()`
+
+### Changed
+- using `yarn` instead of `npm`
+- upgraded `standard`
 
 
 1.2.0 / 2016-04-08
