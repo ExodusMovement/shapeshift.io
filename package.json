@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/exodusmovement/shapeshift.io",
   "devDependencies": {
-    "browserify": "^9.0.8",
+    "browserify": "^13.1.1",
     "cb-insight": "^0.1.0",
     "coininfo": "^0.4.0",
     "coinkey": "^1.4.0",
