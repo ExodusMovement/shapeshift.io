@@ -5,7 +5,7 @@ shapeshift.io
 [![Build Status](https://img.shields.io/travis/ExodusMovement/shapeshift.io.svg?branch=master&style=flat-square)](https://travis-ci.org/ExodusMovement/shapeshift.io)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-A JavaScript component for the crypto currency buying and selling [ShapesShift.io](https://shapeshift.io/) service.
+A JavaScript component for the crypto currency buying and selling [ShapeShift.io](https://shapeshift.io/) service.
 
 You can use [ShapeShift.io](https://shapeshift.io/) to instantly exchange Bitcoin for Litecoin and other
 crypto currencies with no signup/account needed. Use [Exodus](http://www.exodus.io/) to manage your
